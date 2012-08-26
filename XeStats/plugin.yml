@@ -1,0 +1,8 @@
+author: Supermaxman
+main: me.supermaxman.xestats.XeStats
+name: XeStats
+version: '1.0.0'
+commands:
+    stats:
+        description: Gets stats.
+        usage: /<command> [player]
