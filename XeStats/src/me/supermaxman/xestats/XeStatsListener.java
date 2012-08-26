@@ -1,6 +1,5 @@
 package me.supermaxman.xestats;
 
-import me.supermaxman.xestats.utils.ConfigUtils;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -32,15 +31,13 @@ public class XeStatsListener implements Listener {
     @EventHandler
     public void onDie(PlayerDeathEvent event) {
         Player player = event.getEntity();
-        ConfigUtils.addDeath(player);
+        XeStats.statsUserMap.get(player.getName()).setDeaths(XeStats.statsUserMap.get(player.getName()).getDeaths());
         if (player.getKiller() != null) {
-            if (player.getKiller() instanceof Player) {
-                Player killer = event.getEntity().getKiller();
-                ConfigUtils.addKill(killer);
-                ConfigUtils.checkFarKill(killer, killer.getLocation().distance(player.getLocation()));
-                System.out.println(killer.getLocation().distance(player.getLocation()));
+            Player killer = event.getEntity().getKiller();
+            XeStats.statsUserMap.get(killer.getName()).setKills(XeStats.statsUserMap.get(killer.getName()).getKills());
+            XeStats.statsUserMap.get(killer.getName()).setLongestKillRange(killer.getLocation().distance(player.getLocation()));
 
-            }
+
         }
     }
 
@@ -53,8 +50,9 @@ public class XeStatsListener implements Listener {
     @EventHandler
     public void onHit(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player) {
-            ConfigUtils.addHit((Player) event.getDamager());
-            ConfigUtils.addSwing((Player) event.getDamager());
+            Player player = (Player) event.getDamager();
+            XeStats.statsUserMap.get(player.getName()).setHits(XeStats.statsUserMap.get(player.getName()).getHits());
+            XeStats.statsUserMap.get(player.getName()).setSwings(XeStats.statsUserMap.get(player.getName()).getSwings());
         }
     }
 
@@ -62,14 +60,16 @@ public class XeStatsListener implements Listener {
     @EventHandler
     public void onSwing(PlayerInteractEvent event) {
         if (event.getAction() == Action.LEFT_CLICK_AIR) {
-            ConfigUtils.addSwing(event.getPlayer());
+            Player player = event.getPlayer();
+            XeStats.statsUserMap.get(player.getName()).setSwings(XeStats.statsUserMap.get(player.getName()).getSwings());
         }
     }
 
     @EventHandler
     public void onShoot(EntityShootBowEvent event) {
         if (event.getEntity() instanceof Player) {
-            ConfigUtils.addSwing((Player) event.getEntity());
+            Player player = (Player) event.getEntity();
+            XeStats.statsUserMap.get(player.getName()).setSwings(XeStats.statsUserMap.get(player.getName()).getSwings());
         }
     }
 
@@ -78,7 +78,8 @@ public class XeStatsListener implements Listener {
         if (event.getCause() == DamageCause.PROJECTILE) {
             if (((EntityDamageByEntityEvent) event).getDamager() instanceof Arrow) {
                 if (((Projectile) ((EntityDamageByEntityEvent) event).getDamager()).getShooter() instanceof Player) {
-                    ConfigUtils.addHit((Player) ((Projectile) ((EntityDamageByEntityEvent) event).getDamager()).getShooter());
+                    Player player = (Player) ((Projectile) ((EntityDamageByEntityEvent) event).getDamager()).getShooter();
+                    XeStats.statsUserMap.get(player.getName()).setHits(XeStats.statsUserMap.get(player.getName()).getHits());
                 }
             }
         }

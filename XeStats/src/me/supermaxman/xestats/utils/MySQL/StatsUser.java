@@ -27,7 +27,7 @@ public class StatsUser {
     long swings;
 
     //Longest kill distance in m
-    float longestKillRange;
+    double longestKillRange;
 
     public StatsUser(int ID, String userName, long kills, long deaths, long hits, long swings, float longestKillRange) {
         this.ID = ID;
@@ -87,12 +87,14 @@ public class StatsUser {
         this.swings = swings;
     }
 
-    public float getLongestKillRange() {
+    public double getLongestKillRange() {
         return longestKillRange;
     }
 
-    public void setLongestKillRange(float longestKillRange) {
-        this.longestKillRange = longestKillRange;
+    public void setLongestKillRange(double longestKillRange) {
+        if (longestKillRange > this.longestKillRange) {
+            this.longestKillRange = longestKillRange;
+        }
     }
 
     public void dumpToDB() {

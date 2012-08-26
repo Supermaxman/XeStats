@@ -73,7 +73,7 @@ public class QueryManager {
                             "  `Deaths` mediumint(7) NOT NULL DEFAULT '0'," +
                             "  `Hits` mediumint(7) NOT NULL DEFAULT '0'," +
                             "  `Swings` mediumint(7) NOT NULL DEFAULT '0'," +
-                            "  `LongestKillRange` float NOT NULL DEFAULT '0'," +
+                            "  `LongestKillRange` double NOT NULL DEFAULT '0'," +
                             "  PRIMARY KEY (`ID`)," +
                             "  UNIQUE KEY `UserName` (`UserName`)" +
                             ") ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;"
@@ -89,8 +89,6 @@ public class QueryManager {
 
     /**
      * Inits row in db based on player.getName()
-     * <p/>
-     * TODO: Add to onJoin
      *
      * @param player The Player
      */
@@ -106,8 +104,6 @@ public class QueryManager {
 
     /**
      * Adds player to list via DB record.
-     * <p/>
-     * TODO: implement
      *
      * @param player The Player
      */
