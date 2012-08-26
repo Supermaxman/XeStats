@@ -45,6 +45,15 @@ public class XeStats extends JavaPlugin {
 
 
     void setupConfig() {
+        if (!conf.contains("xs.config.database")) {
+            conf.set("xs.config.database", "jdbc:mysql://localhost:3306/minecraft");
+        }
+        if (!conf.contains("xs.config.user")) {
+            conf.set("xs.config.user", "notRoot");
+        }
+        if (!conf.contains("xs.config.password")) {
+            conf.set("xs.config.password", "YourAwesomePassword");
+        }
         saveConfig();
     }
 
