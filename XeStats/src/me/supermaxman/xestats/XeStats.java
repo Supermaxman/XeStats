@@ -1,11 +1,14 @@
 package me.supermaxman.xestats;
 
 import me.supermaxman.xestats.executors.StatsMainExecutor;
+import me.supermaxman.xestats.utils.MySQL.QueryManager;
+import me.supermaxman.xestats.utils.MySQL.StatsUser;
 import net.milkbowl.vault.chat.Chat;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 public class XeStats extends JavaPlugin {
@@ -13,11 +16,13 @@ public class XeStats extends JavaPlugin {
     //Required
     public static Logger log;
     public static FileConfiguration conf;
-
+    public static QueryManager qm;
     private final XeStatsListener Listener = new XeStatsListener(this);
     //    public static Permission permission = null;
     public static Chat chat = null;
     public static XeStats XE;
+
+    public static final HashMap<String, StatsUser> statsUserMap = new HashMap<String, StatsUser>();
 
     @Override
     public void onDisable() {
@@ -37,6 +42,7 @@ public class XeStats extends JavaPlugin {
             return;
         }
         setupConfig();
+        qm = new QueryManager();
         getServer().getPluginManager().registerEvents(Listener, this);
         log.info("All systems go! Version:" + this.getDescription().getVersion());
 
