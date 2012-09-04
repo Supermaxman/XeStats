@@ -111,19 +111,21 @@ public class QueryManager {
         try {
             PreparedStatement Statement = conn.prepareStatement("SELECT * FROM  `XeStats` WHERE  `UserName` =  '" + player.getName() + "' LIMIT 0 , 30");
             ResultSet rs = Statement.executeQuery(); //Executes the query
-            synchronized (XeStats.statsUserMap) {
-                if (!XeStats.statsUserMap.containsKey(player.getName())) {
-                    XeStats.statsUserMap.put(player.getName(),
-                            new StatsUser(
-                                    rs.getInt("ID"),
-                                    rs.getString("UserName"),
-                                    rs.getLong("Kills"),
-                                    rs.getLong("Deaths"),
-                                    rs.getLong("Hits"),
-                                    rs.getLong("Swings"),
-                                    rs.getFloat("LongestKillRange")
-                            )
-                    );
+            if (rs.next()) {
+                synchronized (XeStats.statsUserMap) {
+                    if (!XeStats.statsUserMap.containsKey(player.getName())) {
+                        XeStats.statsUserMap.put(player.getName(),
+                                new StatsUser(
+                                        rs.getInt("ID"),
+                                        rs.getString("UserName"),
+                                        rs.getLong("Kills"),
+                                        rs.getLong("Deaths"),
+                                        rs.getLong("Hits"),
+                                        rs.getLong("Swings"),
+                                        rs.getFloat("LongestKillRange")
+                                )
+                        );
+                    }
                 }
             }
             rs.close();
