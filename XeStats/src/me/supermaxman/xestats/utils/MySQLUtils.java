@@ -101,7 +101,10 @@ public class MySQLUtils {
     
     
     
-    protected static StatsUser getStatsUser(Player p){
+    public static StatsUser getStatsUser(Player p){
+    	if (XeStats.statsUserMap.get(p.getName())==null){
+            XeStats.qm.handleJoin(p);
+    	}
 		return XeStats.statsUserMap.get(p.getName());
     }
     

@@ -47,6 +47,7 @@ public class XeStatsListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
+        MySQLUtils.getStatsUser(player);
         XeStats.qm.handleQuit(player);
     }
 
