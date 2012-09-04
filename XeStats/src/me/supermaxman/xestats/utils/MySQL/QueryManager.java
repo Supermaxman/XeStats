@@ -39,7 +39,7 @@ public class QueryManager {
                             if (statsUser.isDirty()) {
                                 statsUser.dumpToDB();
                                 statsUser.setDirty(false);
-                                System.out.println("Dumping: " + statsUser.toString());
+                                //System.out.println("Dumping: " + statsUser.toString());
                             }
                         }
 
