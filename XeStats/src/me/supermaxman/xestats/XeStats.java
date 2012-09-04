@@ -26,6 +26,7 @@ public class XeStats extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        qm.closeConn(); //Close db connection
         log.info("Disabled.");
 
     }
