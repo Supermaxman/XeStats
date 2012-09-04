@@ -31,9 +31,10 @@ public class QueryManager {
             public void run() {
                 while (true) {
                     try {
-                        HashMap<String, StatsUser> statsUserMap = (HashMap<String, StatsUser>) XeStats.statsUserMap.clone();
+                        HashMap<String, StatsUser> statsUserMap = XeStats.statsUserMap;
                         for (StatsUser statsUser : statsUserMap.values()) {
                             statsUser.dumpToDB();
+                            System.out.println("Dumping: " + statsUser.toString());
                         }
 
                         sleep(5000);

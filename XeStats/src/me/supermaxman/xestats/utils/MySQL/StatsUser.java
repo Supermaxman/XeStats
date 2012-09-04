@@ -100,4 +100,17 @@ public class StatsUser {
     public void dumpToDB() {
         XeStats.qm.DumpStatsUser(this);
     }
+
+    @Override
+    public String toString() {
+        return "StatsUser{" +
+                "ID=" + ID +
+                ", userName='" + userName + '\'' +
+                ", kills=" + kills +
+                ", deaths=" + deaths +
+                ", hits=" + hits +
+                ", swings=" + swings +
+                ", longestKillRange=" + longestKillRange +
+                '}';
+    }
 }
