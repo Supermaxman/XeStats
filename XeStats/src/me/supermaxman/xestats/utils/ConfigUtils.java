@@ -7,7 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 public class ConfigUtils {
-
+	//not needed
     public static void configInfo(Player p) {
         if (p != null) {
             FileConfiguration config = XeStats.conf;
@@ -17,7 +17,7 @@ public class ConfigUtils {
             sendPlayerInfo(p, cs);
         }
     }
-
+    //not needed
     public static void configInfo(Player p, Player lookup) {
         if (p != null && lookup != null) {
             FileConfiguration config = XeStats.conf;
@@ -30,7 +30,7 @@ public class ConfigUtils {
             p.sendMessage(ChatColor.RED + "[XeStats]: This Player Does Not Exist Or Isnt Online.");
         }
     }
-
+    //not needed
     public static String configCheck(Player p, String check) {
         FileConfiguration config = XeStats.conf;
         setupPlayerConfig(p);
@@ -40,7 +40,7 @@ public class ConfigUtils {
         return cs.getString(check);
 
     }
-
+    //not needed
     public static void configSet(Player p, String path, String set) {
         FileConfiguration config = XeStats.conf;
         setupPlayerConfig(p);
@@ -51,8 +51,8 @@ public class ConfigUtils {
         calculateKDR(p, cs);
         XeStats.XE.saveConfig();
     }
-
-
+    
+    //done
     public static void addKill(Player p) {
         FileConfiguration config = XeStats.conf;
         setupPlayerConfig(p);
@@ -63,7 +63,7 @@ public class ConfigUtils {
         calculateKDR(p, cs);
         XeStats.XE.saveConfig();
     }
-
+    //done
     public static void addDeath(Player p) {
         FileConfiguration config = XeStats.conf;
         setupPlayerConfig(p);
@@ -73,7 +73,7 @@ public class ConfigUtils {
         calculateKDR(p, cs);
         XeStats.XE.saveConfig();
     }
-
+    //fixed
     public static void addHit(Player p) {
         FileConfiguration config = XeStats.conf;
         setupPlayerConfig(p);
@@ -84,7 +84,7 @@ public class ConfigUtils {
         calculateHitMiss(p, cs);
         XeStats.XE.saveConfig();
     }
-
+    //fixed
     public static void addSwing(Player p) {
         FileConfiguration config = XeStats.conf;
         setupPlayerConfig(p);
@@ -94,7 +94,7 @@ public class ConfigUtils {
         calculateHitMiss(p, cs);
         XeStats.XE.saveConfig();
     }
-
+    //not needed
     public static void addStat(Player p, String stat) {
         FileConfiguration config = XeStats.conf;
         setupPlayerConfig(p);
@@ -106,7 +106,7 @@ public class ConfigUtils {
         calculateHitMiss(p, cs);
         XeStats.XE.saveConfig();
     }
-
+    //not needed
     public static void setFarKill(Player p, double d) {
         FileConfiguration config = XeStats.conf;
         setupPlayerConfig(p);
@@ -117,7 +117,7 @@ public class ConfigUtils {
         XeStats.XE.saveConfig();
     }
 
-
+    //fixed
     public static void checkFarKill(Player p, double d) {
         FileConfiguration config = XeStats.conf;
         setupPlayerConfig(p);
@@ -128,7 +128,7 @@ public class ConfigUtils {
         }
         XeStats.XE.saveConfig();
     }
-
+    //not needed
     protected static void setupPlayerConfig(Player p) {
         FileConfiguration config = XeStats.conf;
         if (config.getConfigurationSection("players." + p.getWorld().getName() + "." + p.getName()) == null) {
@@ -142,7 +142,7 @@ public class ConfigUtils {
             XeStats.XE.saveConfig();
         }
     }
-
+    //converted
     protected static void calculateKDR(Player p, ConfigurationSection cs) {
         if (Integer.parseInt(cs.getString("deaths")) != 0) {
             cs.set("kdr", Double.toString(Double.parseDouble(cs.getString("kills")) / Double.parseDouble(cs.getString("deaths"))));
@@ -151,7 +151,7 @@ public class ConfigUtils {
         }
         XeStats.XE.saveConfig();
     }
-
+    //Converted
     protected static void calculateHitMiss(Player p, ConfigurationSection cs) {
 
         if (Integer.parseInt(cs.getString(".hitmiss.swings")) != 0) {
@@ -165,7 +165,7 @@ public class ConfigUtils {
         }
         XeStats.XE.saveConfig();
     }
-
+    //converted
     protected static void sendPlayerInfo(Player p, ConfigurationSection cs) {
         calculateKDR(p, cs);
         calculateHitMiss(p, cs);
@@ -184,7 +184,7 @@ public class ConfigUtils {
             i++;
         }
     }
-
+    //converted
     protected static void sendPlayerInfo(Player p, Player lookup, ConfigurationSection cs) {
         calculateKDR(lookup, cs);
         calculateHitMiss(lookup, cs);

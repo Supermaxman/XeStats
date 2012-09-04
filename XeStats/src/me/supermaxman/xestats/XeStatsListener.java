@@ -1,5 +1,7 @@
 package me.supermaxman.xestats;
 
+import me.supermaxman.xestats.utils.MySQLUtils;
+
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -31,12 +33,12 @@ public class XeStatsListener implements Listener {
     @EventHandler
     public void onDie(PlayerDeathEvent event) {
         Player player = event.getEntity();
-        XeStats.statsUserMap.get(player.getName()).setDeaths(XeStats.statsUserMap.get(player.getName()).getDeaths() + 1);
+        MySQLUtils.addDeath(player);
         if (player.getKiller() != null) {
             Player killer = event.getEntity().getKiller();
-            XeStats.statsUserMap.get(killer.getName()).setKills(XeStats.statsUserMap.get(killer.getName()).getKills() + 1);
+            MySQLUtils.addKill(killer);
             double newRange = killer.getLocation().distance(player.getLocation());
-            XeStats.statsUserMap.get(killer.getName()).setLongestKillRange(newRange);
+            MySQLUtils.checkFarKill(killer, newRange);
 
 
         }
@@ -52,8 +54,8 @@ public class XeStatsListener implements Listener {
     public void onHit(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player) {
             Player player = (Player) event.getDamager();
-            XeStats.statsUserMap.get(player.getName()).setHits(XeStats.statsUserMap.get(player.getName()).getHits() + 1);
-            XeStats.statsUserMap.get(player.getName()).setSwings(XeStats.statsUserMap.get(player.getName()).getSwings() + 1);
+            MySQLUtils.addHit(player);
+            MySQLUtils.addSwing(player);
         }
     }
 
@@ -62,7 +64,7 @@ public class XeStatsListener implements Listener {
     public void onSwing(PlayerInteractEvent event) {
         if (event.getAction() == Action.LEFT_CLICK_AIR) {
             Player player = event.getPlayer();
-            XeStats.statsUserMap.get(player.getName()).setSwings(XeStats.statsUserMap.get(player.getName()).getSwings() + 1);
+            MySQLUtils.addSwing(player);
         }
     }
 
@@ -70,7 +72,7 @@ public class XeStatsListener implements Listener {
     public void onShoot(EntityShootBowEvent event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
-            XeStats.statsUserMap.get(player.getName()).setSwings(XeStats.statsUserMap.get(player.getName()).getSwings() + 1);
+            MySQLUtils.addSwing(player);
         }
     }
 
@@ -80,7 +82,7 @@ public class XeStatsListener implements Listener {
             if (((EntityDamageByEntityEvent) event).getDamager() instanceof Arrow) {
                 if (((Projectile) ((EntityDamageByEntityEvent) event).getDamager()).getShooter() instanceof Player) {
                     Player player = (Player) ((Projectile) ((EntityDamageByEntityEvent) event).getDamager()).getShooter();
-                    XeStats.statsUserMap.get(player.getName()).setHits(XeStats.statsUserMap.get(player.getName()).getHits() + 1);
+                    MySQLUtils.addHit(player);
                 }
             }
         }
