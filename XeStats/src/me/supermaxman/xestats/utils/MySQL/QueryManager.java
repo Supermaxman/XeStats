@@ -36,8 +36,11 @@ public class QueryManager {
                             statsUserMap.putAll(XeStats.statsUserMap);
                         }
                         for (StatsUser statsUser : statsUserMap.values()) {
-                            statsUser.dumpToDB();
-                            System.out.println("Dumping: " + statsUser.toString());
+                            if (statsUser.isDirty()) {
+                                statsUser.dumpToDB();
+                                statsUser.setDirty(false);
+                                System.out.println("Dumping: " + statsUser.toString());
+                            }
                         }
 
                         sleep(5000);

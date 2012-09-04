@@ -9,25 +9,28 @@ import me.supermaxman.xestats.XeStats;
  */
 public class StatsUser {
 
-    int ID;
+    private int ID;
 
     //Username
-    String userName;
+    private String userName;
 
     //Total player kills
-    long kills;
+    private long kills;
 
     //Total deaths
-    long deaths;
+    private long deaths;
 
     //Total hits on entity
-    long hits;
+    private long hits;
 
     //Total swings... derp.
-    long swings;
+    private long swings;
 
     //Longest kill distance in m
-    double longestKillRange;
+    private double longestKillRange;
+
+    //User needs to be dumped to db
+    private boolean isDirty = false;
 
     public StatsUser(int ID, String userName, long kills, long deaths, long hits, long swings, float longestKillRange) {
         this.ID = ID;
@@ -43,16 +46,8 @@ public class StatsUser {
         return ID;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
     public String getUserName() {
         return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public long getKills() {
@@ -61,6 +56,7 @@ public class StatsUser {
 
     public void setKills(long kills) {
         this.kills = kills;
+        setDirty(true);
     }
 
     public long getDeaths() {
@@ -69,6 +65,7 @@ public class StatsUser {
 
     public void setDeaths(long deaths) {
         this.deaths = deaths;
+        setDirty(true);
     }
 
     public long getHits() {
@@ -77,6 +74,7 @@ public class StatsUser {
 
     public void setHits(long hits) {
         this.hits = hits;
+        setDirty(true);
     }
 
     public long getSwings() {
@@ -85,6 +83,7 @@ public class StatsUser {
 
     public void setSwings(long swings) {
         this.swings = swings;
+        setDirty(true);
     }
 
     public double getLongestKillRange() {
@@ -94,11 +93,20 @@ public class StatsUser {
     public void setLongestKillRange(double longestKillRange) {
         if (longestKillRange > this.longestKillRange) {
             this.longestKillRange = longestKillRange;
+            setDirty(true);
         }
     }
 
     public void dumpToDB() {
         XeStats.qm.DumpStatsUser(this);
+    }
+
+    public boolean isDirty() {
+        return isDirty;
+    }
+
+    public void setDirty(boolean dirty) {
+        isDirty = dirty;
     }
 
     @Override
@@ -111,6 +119,7 @@ public class StatsUser {
                 ", hits=" + hits +
                 ", swings=" + swings +
                 ", longestKillRange=" + longestKillRange +
+                ", isDirty=" + isDirty +
                 '}';
     }
 }

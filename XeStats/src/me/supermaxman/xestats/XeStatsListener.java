@@ -35,11 +35,9 @@ public class XeStatsListener implements Listener {
         if (player.getKiller() != null) {
             Player killer = event.getEntity().getKiller();
             XeStats.statsUserMap.get(killer.getName()).setKills(XeStats.statsUserMap.get(killer.getName()).getKills() + 1);
-            double oldrange = XeStats.statsUserMap.get(killer.getName()).getLongestKillRange();
             double newRange = killer.getLocation().distance(player.getLocation());
-            if (newRange > oldrange) {
-                XeStats.statsUserMap.get(killer.getName()).setLongestKillRange(newRange);
-            }
+            XeStats.statsUserMap.get(killer.getName()).setLongestKillRange(newRange);
+
 
         }
     }
