@@ -1,5 +1,7 @@
 package me.supermaxman.xestats.utils;
 
+import java.text.DecimalFormat;
+
 import me.supermaxman.xestats.XeStats;
 import me.supermaxman.xestats.utils.MySQL.StatsUser;
 
@@ -34,9 +36,10 @@ public class MySQLUtils {
 	
 	public static void checkFarKill(Player p, double d) {
     	StatsUser s = getStatsUser(p);
+    	DecimalFormat form = new DecimalFormat("#.##");
 
         if (s.getLongestKillRange() < d) {
-            s.setLongestKillRange(d);
+            s.setLongestKillRange(Double.parseDouble(form.format(d)));
         }
     }
 	
@@ -58,9 +61,9 @@ public class MySQLUtils {
     }
     protected static String calculateKDR(Player p) {
     	StatsUser s = getStatsUser(p);
-    	
+    	DecimalFormat form = new DecimalFormat("#.##");
         if (s.getDeaths() != 0) {
-           	return(Double.toString((s.getKills()) / (s.getDeaths())));
+           	return((form.format((double)(s.getKills()) / (double)(s.getDeaths()))));
         } else {
            	return(Double.toString((s.getKills())));
         }

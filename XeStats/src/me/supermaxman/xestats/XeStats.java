@@ -61,6 +61,9 @@ public class XeStats extends JavaPlugin {
         if (!conf.contains("xs.config.password")) {
             conf.set("xs.config.password", "YourAwesomePassword");
         }
+        if (!conf.contains("xs.config.databasename")) {
+            conf.set("xs.config.databasename", "pvp_database");
+        }
         saveConfig();
     }
 
