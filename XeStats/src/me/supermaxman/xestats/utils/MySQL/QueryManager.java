@@ -20,7 +20,6 @@ public class QueryManager {
     private static final String url = config.getString("xs.config.database");
     private static final String user = config.getString("xs.config.user");
     private static final String pass = config.getString("xs.config.password");
-    private static final String database = config.getString("xs.config.databasename");
 
     private static Connection conn = null;
 
@@ -103,7 +102,7 @@ public class QueryManager {
      */
     public void CreateUser(Player player) {
         try {
-            PreparedStatement Statement = conn.prepareStatement("INSERT IGNORE INTO `"+database+"`.`XeStats` (`ID`, `UserName`, `Kills`, `Deaths`, `Hits`, `Swings`, `LongestKillRange`) VALUES (NULL, '" + player.getName() + "', '0', '0', '0', '0', '0');");
+            PreparedStatement Statement = conn.prepareStatement("INSERT IGNORE INTO `XeStats` (`ID`, `UserName`, `Kills`, `Deaths`, `Hits`, `Swings`, `LongestKillRange`) VALUES (NULL, '" + player.getName() + "', '0', '0', '0', '0', '0');");
             Statement.executeUpdate(); //Executes the query
             Statement.close(); //Closes the query
         } catch (SQLException e) {
